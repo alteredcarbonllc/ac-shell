@@ -4,9 +4,9 @@
 
 Reproducible **Ubuntu user shell** based on the audited Altered Carbon laptop environment (30 October 2026). Written as a portable `sh` installer, with Oh My Zsh and a Starship prompt.
 
-**Repository status:** public-release candidate. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026; `LAB_VM_PASS`). The first two GitHub Actions runs ([#1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341), [#2](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141430383)) passed syntax/offline regression tests on Ubuntu 22.04 / 24.04 / 26.04. CI has **not** yet tested end-to-end network installation. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
+**Repository status:** versioned Git tag [`v0.1.0`](https://github.com/alteredcarbonllc/ac-shell/tree/v0.1.0) published and tested in a disposable Ubuntu 24.04 guest; the separately listed GitHub Release entry is pending. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026; `LAB_VM_PASS`). The first two GitHub Actions runs ([#1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341), [#2](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141430383)) passed syntax/offline regression tests on Ubuntu 22.04 / 24.04 / 26.04. CI has **not** yet tested end-to-end network installation. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
 
-## One-command installation (after first release)
+## One-command installation (published v0.1.0 tag)
 
 From a regular, sudo-capable Ubuntu account, install a **reviewable, versioned script**; do not run the installer itself as root:
 
@@ -14,7 +14,7 @@ From a regular, sudo-capable Ubuntu account, install a **reviewable, versioned s
 sudo apt-get update && sudo apt-get install -y curl && curl -fL --proto '=https' --tlsv1.2 -o ac-shell-setup.sh https://raw.githubusercontent.com/alteredcarbonllc/ac-shell/v0.1.0/ac-shell-setup.sh && sh ac-shell-setup.sh install --set-default-shell
 ```
 
-`v0.1.0` above is the **planned tag, not a published release yet**. Once published, pin the version (or exact commit) so the installer cannot silently change. Inspect `ac-shell-setup.sh` before running when using a new release. Re-login after changing the login shell; `exec zsh` starts the new prompt only in the current terminal.
+`v0.1.0` above is a **published, annotated Git tag** pinned to commit `b88ed432da8f1264d6c7ae712a542cf90e63076a`. The downloaded installer was confirmed byte-for-byte against that tag (SHA-256 `4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9`); a fresh guest user passed `RELEASE_TAG_LAB_PASS`. The complete one-liner including `--set-default-shell` / `chsh` has **not** yet been separately tested; the guest login shell was changed with `usermod`. Pin the version (or exact commit) so the installer cannot silently change. Inspect `ac-shell-setup.sh` before running when using a new release. Re-login after changing the login shell; `exec zsh` starts the new prompt only in the current terminal.
 
 For **newest stable versions at first installation**, replace the final command with `sh ac-shell-setup.sh install --latest --set-default-shell`. This retrieves the latest stable Starship release and current default-branch revisions of Oh My Zsh and plugins, then records the exact resolved versions. Repeated installs do not automatically upgrade; use pinned mode on production for reproducibility.
 

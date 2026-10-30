@@ -65,8 +65,19 @@ Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–3
 - Interactive `zsh -ic` returned `PINNED_ZSH_OK`; overall user-observed result **`PINNED_LAB_PASS`**.
 - Scope: clean **user account inside an existing configured VM**, not a newly rebuilt OS or an installation downloaded from a published Git tag. The pinned-tag one-command end-to-end test remains pending.
 
+## 09 — Published v0.1.0 tag and installation from GitHub (31 Oct)
+
+- Published annotated Git tag `v0.1.0` (tag object `15dad8d0a932d5fffb42d28e5950312be785856b`, peeled commit `b88ed432da8f1264d6c7ae712a542cf90e63076a`); the tag was **not moved** after publication.
+- Downloaded `ac-shell-setup.sh` from `https://raw.githubusercontent.com/alteredcarbonllc/ac-shell/v0.1.0/ac-shell-setup.sh` and compared it byte-for-byte with `git show v0.1.0:ac-shell-setup.sh`: `TAGGED_INSTALLER_MATCH=YES`.
+- Downloaded install script SHA-256: `4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9`.
+- Created **fresh** `ac-shell-release` account in the already-running Ubuntu 24.04 lab guest. Downloaded the installer from the published tag as this account, executed `install` (pinned), then `verify`, yielding `VERIFY_OK`.
+- Confirmed Starship 1.27.0, all pinned Oh My Zsh/plugin revisions, unchanged configuration template, Zsh `RELEASE_ZSH_OK`, history values `HISTSIZE=50000 SAVEHIST=10000`, and overall **`RELEASE_TAG_LAB_PASS`**.
+- Login shell was switched inside the disposable guest using administrative `usermod`; the installer's interactive `--set-default-shell` (`chsh`) pathway and the entire README one-liner have **not** been tested end to end.
+- This validates a **published Git tag and installer**, not yet the separately created **GitHub Release** record.
+
 ## Next actions
 
-- Review the updated multilingual documentation and links.
-- Publish a reviewed `v0.1.0` tag only when ready; test pinned one-line installation after tag.
+- Publish the GitHub Release record for the existing immutable `v0.1.0` tag using the prepared multilingual release notes.
+- Independently test the installer's `--set-default-shell` / `chsh` flow under a disposable account; do not imply it passed earlier.
+- Consider adding a CI end-to-end network-installation matrix and authenticated source checksums in a subsequent release.
 - Keep separate infrastructure mapping in `ac-infrastructure` only after a separate approved change, not as a side effect of this project.
