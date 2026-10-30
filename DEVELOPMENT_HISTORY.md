@@ -39,10 +39,15 @@ Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–3
 - No secrets, SSH private keys, local images, personal `.zshrc` or `starship.toml` are included.
 - Cross-version GitHub Actions, default (non-latest) clean installation, arm64 integration and recovery/rollback remain unverified.
 
+## 06 — Public initial commit and GitHub Actions (31 Oct)
+
+- Created public repository `alteredcarbonllc/ac-shell`, initial main commit [`3dd5f0b`](https://github.com/alteredcarbonllc/ac-shell/commit/3dd5f0b41dcb558b2dfc667c3487a691328cf297) contains the 12 source, test and documentation files.
+- [GitHub Actions run #1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341) triggered by that push, completed with `success`.
+- All three matrix jobs passed: `Offline ubuntu-22.04`, `Offline ubuntu-24.04`, `Offline ubuntu-26.04`, including syntax and offline regression tests.
+- CI currently **does not** perform a full network installation or login-shell integration test. The confirmed complete network install remains the separate Ubuntu 24.04 QEMU/KVM VM test (`LAB_VM_PASS`).
+
 ## Next actions
 
-- Publish the repo under `alteredcarbonllc/ac-shell` with public visibility.
-- Verify first Actions runs on 22.04 / 24.04 / 26.04.
 - Choose LICENSE explicitly; do not imply a license from public visibility.
 - Publish a reviewed `v0.1.0` tag only when ready; test pinned one-line installation after tag.
 - Keep separate infrastructure mapping in `ac-infrastructure` only after a separate approved change, not as a side effect of this project.

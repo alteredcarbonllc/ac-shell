@@ -2,7 +2,7 @@
 
 Reproducible **Ubuntu user shell** based on the audited Altered Carbon laptop environment (30 October 2026). Written as a portable `sh` installer, with Oh My Zsh and a Starship prompt.
 
-**Repository status:** public-release candidate. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026); GitHub Actions across Ubuntu 22.04 / 24.04 / 26.04 are configured but require execution after publication. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
+**Repository status:** public-release candidate. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026); The first [GitHub Actions run](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341) passed offline syntax/regression tests on Ubuntu 22.04 / 24.04 / 26.04. Full network installation has been verified in the separate Ubuntu 24.04 QEMU/KVM lab, not in CI. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
 
 ## One-command installation (after first release)
 
