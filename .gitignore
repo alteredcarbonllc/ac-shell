@@ -1,0 +1,19 @@
+# Local test/VM artifacts must never be committed
+*.qcow2
+*.img
+*.iso
+*.pid
+*.sock
+*.log
+*.part
+*.pem
+id_ed25519
+id_ed25519.pub
+known_hosts
+.env
+.env.*
+!.env.example
+*.before-ac-shell-*
+.DS_Store
+__pycache__/
+*.pyc
