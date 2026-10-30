@@ -56,6 +56,15 @@ Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–3
 - All documentation entry points include language navigation. Installer functionality is unchanged.
 - The `v0.1.0` tag is **not** created yet; a published-tag installation test remains pending.
 
+## 08 — Pinned installation in existing Ubuntu 24.04 lab VM (31 Oct)
+
+- On the **already running** Ubuntu 24.04 QEMU/KVM guest, created a **fresh** ordinary user `ac-shell-pinned` with no prior shell configuration.
+- Transferred the exact `ac-shell-setup.sh` from the repository checkout, then ran `plan`, `install` **without `--latest`**, and `verify` under the new user.
+- Confirmed Starship **1.27.0**, audited Oh My Zsh commit `0eeaa529bb1442c2934930a5820f596e678458d4`, autosuggestions commit `0e810e5afa27acbd074398eefbe28d13005dbc15`, and syntax-highlighting commit `5eb677bb0fa9a3e60f0eff031dc13926e093df92`.
+- Repeated `install` and `verify`: repositories reused, dotfiles unchanged, no downgrade, `VERIFY_OK`.
+- Interactive `zsh -ic` returned `PINNED_ZSH_OK`; overall user-observed result **`PINNED_LAB_PASS`**.
+- Scope: clean **user account inside an existing configured VM**, not a newly rebuilt OS or an installation downloaded from a published Git tag. The pinned-tag one-command end-to-end test remains pending.
+
 ## Next actions
 
 - Review the updated multilingual documentation and links.
