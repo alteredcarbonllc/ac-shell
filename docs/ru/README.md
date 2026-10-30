@@ -11,12 +11,12 @@
 Выполняйте от обычного пользователя Ubuntu с правом `sudo`; не запускайте сам установщик от root:
 
 ```sh
-sudo apt-get update && sudo apt-get install -y curl && curl -fL --proto '=https' --tlsv1.2 -o ac-shell-setup.sh https://raw.githubusercontent.com/alteredcarbonllc/ac-shell/v0.1.0/ac-shell-setup.sh && sh ac-shell-setup.sh install --set-default-shell
+sudo apt-get update && sudo apt-get install -y curl ca-certificates && curl -fL --proto '=https' --tlsv1.2 -o ac-shell-v0.1.0.sh https://raw.githubusercontent.com/alteredcarbonllc/ac-shell/v0.1.0/ac-shell-setup.sh && printf '%s  %s\n' '4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9' ac-shell-v0.1.0.sh | sha256sum -c - && sh ac-shell-v0.1.0.sh install --set-default-shell
 ```
 
-**`v0.1.0` — уже опубликованный аннотированный Git-тег** на коммите `b88ed432da8f1264d6c7ae712a542cf90e63076a`. Загруженный установщик побайтово сверен с тегом (SHA-256 `4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9`), отдельный пользователь VM завершил тест `RELEASE_TAG_LAB_PASS`. Полная однострочная команда с `--set-default-shell` / `chsh` **ещё не проверена**; login shell в VM менялся через `usermod`. Закрепляйте тег или SHA, чтобы скрипт не менялся незаметно. Перед запуском изучите `ac-shell-setup.sh`. После изменения login shell войдите заново; `exec zsh` запускает новую оболочку только в текущем терминале.
+**`v0.1.0` — уже опубликованный аннотированный Git-тег** на коммите `b88ed432da8f1264d6c7ae712a542cf90e63076a`. Загруженный установщик побайтово сверен с тегом (SHA-256 `4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9`), отдельный пользователь VM завершил тест `RELEASE_TAG_LAB_PASS`. Полная однострочная команда с `--set-default-shell` / `chsh` **ещё не проверена**; login shell в VM менялся через `usermod`. Закрепляйте тег или SHA, чтобы скрипт не менялся незаметно. Закреплённая контрольная сумма SHA-256 остановит выполнение, если скачанный скрипт отличается от проверенного файла `v0.1.0`. Команду в `main` можно редактировать, но файлы исторического тега остаются неизменными. Перед запуском изучите `ac-shell-v0.1.0.sh`. После изменения login shell войдите заново; `exec zsh` запускает новую оболочку только в текущем терминале.
 
-Для установки новейших стабильных компонентов **при первой установке** используйте `sh ac-shell-setup.sh install --latest --set-default-shell`. Режим получает последний стабильный релиз Starship и текущие ревизии Oh My Zsh/плагинов, после чего записывает точные версии. Повторный запуск автоматически ничего не обновляет; на production предпочтительнее зафиксированные проверенные версии.
+Для установки новейших стабильных компонентов **при первой установке** используйте `sh ac-shell-v0.1.0.sh install --latest --set-default-shell`. Режим получает последний стабильный релиз Starship и текущие ревизии Oh My Zsh/плагинов, после чего записывает точные версии. Повторный запуск автоматически ничего не обновляет; на production предпочтительнее зафиксированные проверенные версии.
 
 Если репозиторий уже клонирован:
 

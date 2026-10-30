@@ -45,6 +45,24 @@ def check() -> None:
             destination = (path.parent / url).resolve()
             if not destination.is_relative_to(ROOT) or not destination.is_file():
                 issues.append(f"{relative}: unresolved relative link: {url}")
+    # Keep the published v0.1.0 one-liner identical across all language READMEs.
+    # This digest was verified against the tagged script in the Ubuntu lab.
+    expected_sha256 = "4925bdcba07bea531442347d1bcaa8159f3c48c17435140517d0635632be41f9"
+    expected_command = (
+        "sudo apt-get update && sudo apt-get install -y curl ca-certificates && "
+        "curl -fL --proto '=https' --tlsv1.2 -o ac-shell-v0.1.0.sh "
+        "https://raw.githubusercontent.com/alteredcarbonllc/ac-shell/v0.1.0/ac-shell-setup.sh && "
+        "printf '%s  %s\\n' '" + expected_sha256 + "' ac-shell-v0.1.0.sh | "
+        "sha256sum -c - && sh ac-shell-v0.1.0.sh install --set-default-shell"
+    )
+    for rel in ("README.md", "docs/uk/README.md", "docs/ru/README.md"):
+        readme = ROOT / rel
+        if not readme.is_file():
+            continue
+        match = re.search(r"```sh\n([^\n]+)\n```", readme.read_text(encoding="utf-8"))
+        if not match or match.group(1) != expected_command:
+            issues.append(f"{rel}: v0.1.0 one-line installer must match pinned SHA-256 command")
+
     license_file = ROOT / "LICENSE"
     if not license_file.is_file():
         issues.append("missing LICENSE")
