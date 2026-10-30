@@ -1,5 +1,7 @@
 # Security considerations
 
+**Language:** English · [Українська](docs/uk/SECURITY.md) · [Русский](docs/ru/SECURITY.md)
+
 - The script operates as the target **unprivileged** user; `sudo` is used for missing Ubuntu apt dependencies only. Do not run the installer as root.
 - `--latest` is intentionally **not** an unattended updater. It resolves upstream software once for new accounts and records versions. Production should prefer reviewed, pinned releases.
 - Starship archive integrity: SHA-256 from the same upstream GitHub release endpoint over HTTPS (not an independently signed release assertion). Oh My Zsh/plugin Git revisions are recorded and verified.
@@ -10,3 +12,5 @@
 - This installer should not be coupled to identity, mail, VPN, or any production service restart.
 
 If a security flaw is found before public issue reporting is configured, contact the repository owner privately through the organization’s established security channel. Do not post credentials or exploit material in public issues.
+
+Project-owned code and documentation are licensed under the [MIT License](LICENSE).

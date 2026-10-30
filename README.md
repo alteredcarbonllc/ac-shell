@@ -1,8 +1,10 @@
 # Altered Carbon Shell (`ac-shell`)
 
+**Language:** English · [Українська](docs/uk/README.md) · [Русский](docs/ru/README.md)
+
 Reproducible **Ubuntu user shell** based on the audited Altered Carbon laptop environment (30 October 2026). Written as a portable `sh` installer, with Oh My Zsh and a Starship prompt.
 
-**Repository status:** public-release candidate. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026); The first [GitHub Actions run](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341) passed offline syntax/regression tests on Ubuntu 22.04 / 24.04 / 26.04. Full network installation has been verified in the separate Ubuntu 24.04 QEMU/KVM lab, not in CI. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
+**Repository status:** public-release candidate. Successful full Ubuntu 24.04 QEMU/KVM lab run (30–31 Oct 2026; `LAB_VM_PASS`). The first two GitHub Actions runs ([#1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341), [#2](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141430383)) passed syntax/offline regression tests on Ubuntu 22.04 / 24.04 / 26.04. CI has **not** yet tested end-to-end network installation. Other operating systems are not yet supported. This is a user-shell installer, **not** a server bootstrap/deployment framework.
 
 ## One-command installation (after first release)
 
@@ -25,7 +27,7 @@ sh ac-shell-setup.sh install --set-default-shell
 sh ac-shell-setup.sh verify
 ```
 
-See [INSTALL.md](INSTALL.md) for safety, options and limitations, [DEVELOPMENT_HISTORY.md](DEVELOPMENT_HISTORY.md) for test evidence, and [SECURITY.md](SECURITY.md) for dependencies and reporting.
+See [INSTALL.md](INSTALL.md) for safety, options and limitations, [DEVELOPMENT_HISTORY.md](DEVELOPMENT_HISTORY.md) for test evidence, [SECURITY.md](SECURITY.md) for dependencies and reporting, [RELEASE.md](RELEASE.md) for release procedures, and [lab/README.md](lab/README.md) for disposable lab testing.
 
 ## Reproduced features
 
@@ -42,9 +44,12 @@ The hostname and current directory depend on the machine; the exact visual appea
 ```text
 ac-shell-setup.sh                  POSIX sh installer / plan / verify / render
  test-shell.sh                      Offline regression suite
+ test-docs.py                        Multilingual docs and links check
  lab/run-local-user-lab.sh         Test installation under a dedicated existing user
  lab/ac-shell-vm-lab.sh            Isolated QEMU/KVM Ubuntu 24.04 lab
  .github/workflows/offline-tests.yml  Offline CI across Ubuntu 22.04/24.04/26.04
 ```
 
-**Visibility vs licensing:** public repository visibility does not automatically grant an open-source license. A license has **not** yet been selected; the owner must choose it before encouraging redistribution or external contributions.
+## License
+
+Project-owned code and documentation are released under the **MIT License** (Copyright © 2026 Altered Carbon LLC). See the canonical [LICENSE](LICENSE) text. Third-party dependencies retain their own licenses.

@@ -1,5 +1,7 @@
 # Development history and verification ledger
 
+**Language:** English · [Українська](docs/uk/DEVELOPMENT_HISTORY.md) · [Русский](docs/ru/DEVELOPMENT_HISTORY.md)
+
 Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–31 Oct 2026. These are *recorded results*, not claims of new tests performed inside GitHub.
 
 ## 01 — Baseline audit (30 Oct)
@@ -44,10 +46,18 @@ Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–3
 - Created public repository `alteredcarbonllc/ac-shell`, initial main commit [`3dd5f0b`](https://github.com/alteredcarbonllc/ac-shell/commit/3dd5f0b41dcb558b2dfc667c3487a691328cf297) contains the 12 source, test and documentation files.
 - [GitHub Actions run #1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341) triggered by that push, completed with `success`.
 - All three matrix jobs passed: `Offline ubuntu-22.04`, `Offline ubuntu-24.04`, `Offline ubuntu-26.04`, including syntax and offline regression tests.
+- [GitHub Actions run #2](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141430383), triggered by documentation commit `09ecd09`, also completed with `success`.
 - CI currently **does not** perform a full network installation or login-shell integration test. The confirmed complete network install remains the separate Ubuntu 24.04 QEMU/KVM VM test (`LAB_VM_PASS`).
+
+## 07 — MIT license and three-language documentation (31 Oct)
+
+- Owner approved **MIT License** for project-owned code and documentation, with `Copyright (c) 2026 Altered Carbon LLC`.
+- English documents remain at repository root; Ukrainian translations are in `docs/uk/` and Russian translations in `docs/ru/`. The authoritative `LICENSE` remains in English.
+- All documentation entry points include language navigation. Installer functionality is unchanged.
+- The `v0.1.0` tag is **not** created yet; a published-tag installation test remains pending.
 
 ## Next actions
 
-- Choose LICENSE explicitly; do not imply a license from public visibility.
+- Review the updated multilingual documentation and links.
 - Publish a reviewed `v0.1.0` tag only when ready; test pinned one-line installation after tag.
 - Keep separate infrastructure mapping in `ac-infrastructure` only after a separate approved change, not as a side effect of this project.

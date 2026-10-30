@@ -23,3 +23,6 @@ jobs:
           sh -n lab/run-local-user-lab.sh
           sh -n lab/ac-shell-vm-lab.sh
           sh test-shell.sh
+      - name: Three-language documentation and relative links
+        shell: bash
+        run: python3 test-docs.py

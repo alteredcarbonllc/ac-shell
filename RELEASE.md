@@ -1,10 +1,15 @@
-# Publication checklist (initial release)
+# Initial release checklist
 
-The initial public repo is a source **release candidate**. Do not publish `v0.1.0` or advertise the one-line installation URL until the first Actions run succeeds and the owner has reviewed licensing.
+**Language:** English · [Українська](docs/uk/RELEASE.md) · [Русский](docs/ru/RELEASE.md)
 
-1. Create the new **public** `alteredcarbonllc/ac-shell` repository, push the audited tree.
-2. Inspect `.github/workflows/offline-tests.yml` and watch the matrix across `ubuntu-22.04`, `ubuntu-24.04`, `ubuntu-26.04`.
-3. Review dependencies, third-party license terms and select a license (not chosen by this package).
-4. Create signed (preferred) or annotated `v0.1.0` tag from a reviewed commit, push the tag, and verify GitHub raw URL returns the expected script.
-5. Test the one-command deployment on a **fresh, unprivileged** Ubuntu user.
-6. Keep exact test results and follow-up failures in `DEVELOPMENT_HISTORY.md`, with commit references.
+The repository is public, but versioned release `v0.1.0` **has not been published**.
+
+1. **Done:** Create public `alteredcarbonllc/ac-shell`, push the reviewed source tree to `main`.
+2. **Done:** Confirm GitHub Actions run [#1](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141291341) and [#2](https://github.com/alteredcarbonllc/ac-shell/actions/runs/41141430383) succeeded on `ubuntu-22.04`, `ubuntu-24.04`, and `ubuntu-26.04`. This is **offline regression testing**, not end-to-end network installation.
+3. **Done:** Select MIT License for project-owned code and documentation. Review third-party dependency licenses separately.
+4. **Pending:** Review installer, documentation, security limitations and local/remote Git synchronization.
+5. **Pending:** Create a signed (preferred) or annotated `v0.1.0` tag from a reviewed commit; push it and verify the tagged raw installer URL.
+6. **Pending:** Test a fresh, unprivileged Ubuntu user's one-line installation **from the published tag**.
+7. Record exact test results, failures and commit hashes in [DEVELOPMENT_HISTORY.md](DEVELOPMENT_HISTORY.md).
+
+Do not advertise the tagged one-command installation as functional until the tag exists and the command has been tested.

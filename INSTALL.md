@@ -1,5 +1,7 @@
 # Installation and operations
 
+**Language:** English · [Українська](docs/uk/INSTALL.md) · [Русский](docs/ru/INSTALL.md)
+
 ## Assumptions
 
 - Ubuntu 22.04, 24.04 or 26.04; end-to-end clean installation verified only on Ubuntu 24.04 at this stage.

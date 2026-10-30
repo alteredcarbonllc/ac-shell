@@ -1,5 +1,7 @@
 # Optional laboratory runners
 
+**Language:** English · [Українська](../docs/uk/lab/README.md) · [Русский](../docs/ru/lab/README.md)
+
 ## Existing separate user
 
 `run-local-user-lab.sh` uses an already-created `ac-shell-test` Ubuntu user with an **empty configuration** and preinstalled host packages. It refuses to touch an already-provisioned user, does not modify the host's login shell, and does not run host apt operations.
