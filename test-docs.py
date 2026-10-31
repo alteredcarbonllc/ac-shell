@@ -63,6 +63,19 @@ def check() -> None:
         if not match or match.group(1) != expected_command:
             issues.append(f"{rel}: v0.1.0 one-line installer must match pinned SHA-256 command")
 
+    # Keep the displayed GitHub Release installation command identical to README.
+    release_notes = ROOT / "releases/v0.1.0.md"
+    if not release_notes.is_file():
+        issues.append("missing releases/v0.1.0.md")
+    else:
+        notes = release_notes.read_text(encoding="utf-8")
+        match = re.search(r"```sh\n([^\n]+)\n```", notes)
+        if not match or match.group(1) != expected_command:
+            issues.append("releases/v0.1.0.md: installer must match pinned README command")
+        for required in ("## English", "## Українська", "## Русский"):
+            if required not in notes:
+                issues.append(f"releases/v0.1.0.md: missing {required}")
+
     license_file = ROOT / "LICENSE"
     if not license_file.is_file():
         issues.append("missing LICENSE")

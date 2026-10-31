@@ -75,9 +75,16 @@ Source: direct command output from the user on Ubuntu 26.04.1 LTS laptop, 30–3
 - Login shell was switched inside the disposable guest using administrative `usermod`; the installer's interactive `--set-default-shell` (`chsh`) pathway and the entire README one-liner have **not** been tested end to end.
 - This validates a **published Git tag and installer**, not yet the separately created **GitHub Release** record.
 
+## 10 — Published GitHub Release and SHA-256 installation instructions (31 Oct)
+
+- Verified public [GitHub Release v0.1.0](https://github.com/alteredcarbonllc/ac-shell/releases/tag/v0.1.0) exists for the previously published annotated tag. Its existing description lacked the one-line installation command.
+- Added the **exact** SHA-256-verified `v0.1.0` installation one-liner to the shared English/Ukrainian/Russian release-notes source `releases/v0.1.0.md`, with explicit non-root `sudo` requirement and the still-untested interactive `chsh` limitation.
+- Extended `test-docs.py` to compare the release-notes one-liner against all three language READMEs. Updated release-status references without changing the installer or `v0.1.0` tag.
+- The hosted GitHub Release description **does not auto-sync** from repository Markdown; it must be edited separately before the installation command is visible on the Release page.
+
 ## Next actions
 
-- Publish the GitHub Release record for the existing immutable `v0.1.0` tag using the prepared multilingual release notes.
+- Copy the updated `releases/v0.1.0.md` contents into the existing GitHub Release description and verify the command is visible on the live page.
 - Independently test the installer's `--set-default-shell` / `chsh` flow under a disposable account; do not imply it passed earlier.
 - Consider adding a CI end-to-end network-installation matrix and authenticated source checksums in a subsequent release.
 - Keep separate infrastructure mapping in `ac-infrastructure` only after a separate approved change, not as a side effect of this project.
