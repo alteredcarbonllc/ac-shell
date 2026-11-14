@@ -2,7 +2,7 @@
 
 **Language:** English · [Українська](docs/uk/SECURITY.md) · [Русский](docs/ru/SECURITY.md)
 
-- The script operates as the target **unprivileged** user; `sudo` is used for missing Ubuntu apt dependencies only. Do not run the installer as root.
+- The script operates as the **target account**. An unprivileged user uses `sudo` only for missing Ubuntu APT dependencies. Root installs are allowed only for root's own profile with `HOME=/root`; run from `sudo -i`, never from a preserved non-root HOME. Root APT operations do not use `sudo`.
 - `--latest` is intentionally **not** an unattended updater. It resolves upstream software once for new accounts and records versions. Production should prefer reviewed, pinned releases.
 - Starship archive integrity: SHA-256 from the same upstream GitHub release endpoint over HTTPS (not an independently signed release assertion). Oh My Zsh/plugin Git revisions are recorded and verified.
 - A `curl` download is still executable code: inspect the script and pin an immutable reviewed commit or release when deploying on sensitive hosts. The README one-liner fetches the script first instead of using `curl | sh`.
