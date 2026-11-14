@@ -39,6 +39,14 @@ if env -u ZDOTDIR -u STARSHIP_CONFIG HOME="$work/home" sh "$installer" verify > 
   exit 1
 fi
 grep -Fqx 'VERIFY_FAILED' "$work/verify.txt"
+# Root may install only with HOME=/root; verify this guard without installing.
+if [ "$(id -u)" -eq 0 ]; then
+  if env -u ZDOTDIR -u STARSHIP_CONFIG HOME="$work/home" sh "$installer" install > "$work/root-rejected.txt" 2>&1; then
+    echo 'FAIL: root installer accepted another HOME' >&2
+    exit 1
+  fi
+  grep -Fq 'root install requires HOME=/root' "$work/root-rejected.txt"
+fi
 # Prevent regression: exported nondefault variables must not poison isolated test.
 STARSHIP_CONFIG=/tmp/foreign-config ZDOTDIR=/tmp/foreign-zdot sh "$installer" render-starship >/dev/null
 printf '%s\n' 'OFFLINE_TESTS_OK' 
