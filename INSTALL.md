@@ -5,7 +5,7 @@
 ## Assumptions
 
 - Ubuntu 22.04, 24.04 or 26.04; end-to-end clean installation verified only on Ubuntu 24.04 at this stage.
-- Run as the **target non-root user**. `sudo` is invoked for missing apt packages; account needs administrative permission only if packages are missing. The installer refuses root.
+- Run as the **target account**: a regular user uses `sudo` only for missing apt packages; root may install its own profile when `HOME=/root` (use `sudo -i`). Root APT operations run without `sudo`. Do not use `sudo -E` to target another user's home.
 - `curl` is needed for the standalone remote script; the one-line command in README installs it first. Network access is required to GitHub and Ubuntu apt repositories.
 - Supported Starship release architectures: x86_64 and aarch64; QEMU VM integration tested on x86_64.
 - New user with no unmanaged `.zshrc` or `starship.toml` is the safest target.
@@ -24,7 +24,7 @@ sh test-shell.sh
 - `install` defaults to Starship **1.27.0** and pinned Oh My Zsh/plugin revisions. If already installed with a `versions.tsv` lock, it reuses the recorded version instead of downgrading.
 - `--latest` on first install downloads the **latest stable**, resolves plugin Git HEADs and saves full commits; on an already locked account it **only verifies**, does **not** update.
 - `--replace` explicitly permits backup and replacement of pre-existing `.zshrc`, `starship.toml`, and differing local Starship binary. It does **not** automatically rewrite mismatched existing Oh My Zsh/plugin Git repos.
-- `--set-default-shell` invokes `chsh` and can require authentication. It must be explicitly requested. Re-login for it to take effect.
+- `--set-default-shell` invokes `chsh` for ordinary accounts (may require authentication) or `usermod` for root. It must be explicitly requested. Re-login for it to take effect.
 - `plan`, `verify`, and `render-*` do not install packages or change dotfiles.
 
 ## Managed paths
@@ -56,4 +56,4 @@ The script rejects foreign `STARSHIP_CONFIG` and `ZDOTDIR`, managed-path symlink
 
 ## Out of scope
 
-No root/system shell, no server bootstrap, no unattended deployment, no OS upgrades, no Devuan migration, no modification of other users' environments, no external identity/account-manager integration.
+No system-wide shell configuration or server bootstrap; root's **own login shell** is supported when explicitly requested. No unattended deployment, OS upgrades, Devuan migration, modification of other users' environments, or external identity/account-manager integration.
