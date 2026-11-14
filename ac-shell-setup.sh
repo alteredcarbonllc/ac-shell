@@ -1,6 +1,6 @@
 #!/bin/sh
 # Altered Carbon Shell v4 — reproduce the *audited* Ubuntu Zsh/Starship profile.
-# POSIX sh entry point. Run as the target user, not via sudo.
+# POSIX sh entry point. Run as the intended account (root manages /root only).
 set -eu
 umask 077
 
@@ -19,7 +19,8 @@ Altered Carbon Shell v4
   sh ac-shell-setup.sh render-starship
   sh ac-shell-setup.sh render-zshrc
 
-Run as the intended ordinary Ubuntu user, NOT with sudo.
+Run as the intended account. Root installs require HOME=/root (use sudo -i).
+Never use sudo while preserving a different user's HOME.
 --latest: on a NEW account, resolve the latest stable Starship release and
           latest default-branch revisions of Oh My Zsh and both plugins.
           Existing installations are not silently upgraded.
@@ -208,7 +209,11 @@ lock_value() {
 
 if [ "$MODE" = verify ]; then verify; exit $?; fi
 
-[ "$(id -u)" -ne 0 ] || fail 'install as the desired non-root user; do not run via sudo'
+# Root is a supported target, but it must never manage another account's HOME.
+# In particular, do not allow sudo -E to redirect root-owned files into a user home.
+if [ "$(id -u)" -eq 0 ]; then
+  [ "$HOME" = /root ] || fail 'root install requires HOME=/root (use sudo -i)'
+fi
 # Latest chooses components at first install; do not silently update existing installations.
 if [ "$LATEST" = yes ] && [ -e "$LOCK" ]; then
   echo 'EXISTING_INSTALLATION: --latest will not upgrade an installed account; verifying pinned components'
@@ -288,17 +293,26 @@ for pkg in $EXTRAS; do
     missing_extras="$missing_extras $pkg"
   fi
 done
+run_apt() {
+  if [ "$(id -u)" -eq 0 ]; then
+    env DEBIAN_FRONTEND=noninteractive apt-get "$@"
+  else
+    sudo env DEBIAN_FRONTEND=noninteractive apt-get "$@"
+  fi
+}
 if [ -n "$missing_core$missing_extras" ]; then
-  command -v sudo >/dev/null 2>&1 || fail 'sudo required to install apt packages; install the dependencies first'
-  sudo apt-get update
+  if [ "$(id -u)" -ne 0 ]; then
+    command -v sudo >/dev/null 2>&1 || fail 'sudo required to install apt packages; install the dependencies first'
+  fi
+  run_apt update
   if [ -n "$missing_core" ]; then
     # Intentionally split whitespace-separated package names.
     # shellcheck disable=SC2086
-    sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y $missing_core
+    run_apt install -y $missing_core
   fi
   for pkg in $missing_extras; do
     if apt-cache show "$pkg" >/dev/null 2>&1; then
-      sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y "$pkg"
+      run_apt install -y "$pkg"
     else
       printf 'WARNING: optional apt package unavailable: %s\n' "$pkg" >&2
     fi
@@ -432,8 +446,13 @@ if [ ! -e "$LOCK" ]; then
 fi
 
 if [ "$SET_DEFAULT_SHELL" = yes ]; then
-  command -v chsh >/dev/null 2>&1 || fail 'chsh unavailable; login shell unchanged'
-  chsh -s "$(command -v zsh)" "$(id -un)"
+  if [ "$(id -u)" -eq 0 ]; then
+    command -v usermod >/dev/null 2>&1 || fail 'usermod unavailable; login shell unchanged'
+    usermod -s "$(command -v zsh)" root
+  else
+    command -v chsh >/dev/null 2>&1 || fail 'chsh unavailable; login shell unchanged'
+    chsh -s "$(command -v zsh)" "$(id -un)"
+  fi
   printf '%s\n' 'LOGIN_SHELL_CHANGE_REQUESTED'
 else
   printf '%s\n' 'LOGIN_SHELL_UNCHANGED'
